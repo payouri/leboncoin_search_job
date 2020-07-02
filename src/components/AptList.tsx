@@ -1,4 +1,5 @@
 import React, { useState, useEffect, lazy, memo, useCallback } from 'react'
+import { Button } from 'antd';
 
 const fetchSearch = async () => await fetch('./search.json').then(res => res.json())
 
@@ -11,7 +12,17 @@ interface IAptListProps {
     perPage: number,
 }
 
-const AptList = (props: { perPage: number }) => {
+const ListItem = (props: IApartment) => {
+    const { description, link } = props
+    return (
+        <li>
+            {description}
+            <a href={link}>Voir l'annonce</a>
+        </li>
+    )
+}
+
+const AptList = (props: IAptListProps) => {
 
     const [apartments, setApartments] = useState<IApartment[]>([])
 
@@ -27,14 +38,11 @@ const AptList = (props: { perPage: number }) => {
 
     return (
         <div>
-            <button onClick={() => { refreshList() }}>Test</button>
+            <Button onClick={() => { refreshList() }}>Test</Button>
             <ul>
                 {
                     apartments.map(a => (
-                        <li key={a.link}>
-                            {a.description}
-                            {a.link}
-                        </li>
+                        <ListItem key={a.link} {...a} />
                     ))
                 }
             </ul>

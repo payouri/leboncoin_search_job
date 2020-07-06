@@ -16,8 +16,9 @@ server.register(fastifyStatic, {
     root: path.join(__dirname, '../build/')
 })
 
-server.get('/', async (req, res) => {
-    
+server.get('*', async (req, res) => {
+    console.log(path.join(__dirname, '../build/index.html'))
+    await res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
 console.log(process.env)

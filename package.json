@@ -10,6 +10,7 @@
     "@types/node": "^12.12.47",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.0.0",
     "antd": "^4.4.0",
     "concurrently": "^5.2.0",
     "fastify": "^2.15.1",
@@ -17,6 +18,7 @@
     "leboncoin-api": "^0.0.42",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-scripts": "3.4.1",
     "typescript": "^3.7.5"
   },

@@ -144,7 +144,7 @@ const ListItem = (props: IApartment) => {
                     </div>
                 }
             >
-                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'more' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
+                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'Plus' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
             </Card>
         </Col>
     )

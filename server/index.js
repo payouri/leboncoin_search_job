@@ -17,7 +17,6 @@ server.register(fastifyStatic, {
 })
 
 server.get('*', async (req, res) => {
-    console.log(path.join(__dirname, '../build/index.html'))
     await res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 

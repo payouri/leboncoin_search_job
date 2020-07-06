@@ -5,7 +5,7 @@ const makeRequest = async () => {
     try {
         const s = await new Search()
             .setPage(1)
-            .setQuery('renove OR neuf NOT studio OR terrasse OR balcon NOT local')
+            .setQuery('renove OR neuf NOT studio OR terrasse OR balcon NOT local NOT colocation')
             // .setFilter(leboncoin.FILTERS.PARTICULIER)
             .setCategory('locations')
             .setRegion('herault')

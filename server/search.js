@@ -4,7 +4,7 @@ const { Search } = lebonCoinAPI
 const makeRequest = async () => {
     const s = await new Search()
         .setPage(1)
-        .setQuery('renove OR neuf NOT studio')
+        .setQuery('renove OR neuf NOT studio OR terrasse OR balcon NOT local')
         // .setFilter(leboncoin.FILTERS.PARTICULIER)
         .setCategory('locations')
         .setRegion('herault')
@@ -22,7 +22,7 @@ const makeRequest = async () => {
 }
 
 const saveRequest = async ({ results }) => {
-    const path = './build/search.json'
+    const path = './search.json'
     try {
         await stat(path)
     } catch (err) {

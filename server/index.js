@@ -23,15 +23,17 @@ server.get('*', async (req, res) => {
 // console.log(process.env)
 
 const main = async () => {
-    try {
-        await search();
-
-        await server.listen(process.env.PORT || 3000, '0.0.0.0')
-
-        console.log(`server listening on port ${server.server.address().port}`)
-    } catch (err) {
-        console.log(err)
+    const request = async () => {
+        try {
+            await search();
+        } catch (err) {
+            console.log('search failed retrying in 30 minutes')
+            setTimeout(request, 30 * 60 * 1000)
+        }
     }
+    request()
+    await server.listen(process.env.PORT || 3000, '0.0.0.0')
+    console.log(`server listening on port ${server.server.address().port}`)
 }
 
 main()

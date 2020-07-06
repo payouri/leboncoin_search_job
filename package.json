@@ -24,7 +24,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "serve": "npm run build && node ./server/index.js",
+    "serve": "node ./server/index.js",
     "serve:dev": "npm run build && node ./node_modules/nodemon/bin/nodemon.js --config ./nodemon.config.json ./server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",

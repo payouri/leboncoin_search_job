@@ -113,8 +113,6 @@ const ownerTag = ({ type } : IApartment['owner']) => type === 'private' ? <Tag c
 
 const ListItem = (props: IApartment) => {
     let { description, link, title, images, price, date, owner } = props
-    description = description.length >= 200 ? description.substring(0, 200) + '...' : description
-    description = description.replace(new RegExp('\\r\\n', 'g'), '<br>')
     return (
         <Col md={{
             span: 12
@@ -146,7 +144,7 @@ const ListItem = (props: IApartment) => {
                     </div>
                 }
             >
-                <Paragraph ellipsis={{ rows: 4, expandable: true, symbol: 'more' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
+                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'more' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
             </Card>
         </Col>
     )

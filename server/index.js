@@ -12,9 +12,14 @@ const server = fastify({
 
 // const HTMLIndex = readFile('/public/index.html')
 
+// server.get('/build/search.json', async (req, res) => {
+
+// })
+
 server.register(fastifyStatic, {
     root: path.join(__dirname, '../build/')
 })
+
 
 server.get('*', async (req, res) => {
     await res.sendFile(path.join(__dirname, '../build/index.html'))

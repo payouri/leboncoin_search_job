@@ -32,16 +32,16 @@ const saveRequest = async ({ results }) => {
     }
 
     try {
-    let currentContent = JSON.parse(await readFile(path, { encoding: 'utf-8' }))
+        let currentContent = JSON.parse(await readFile(path, { encoding: 'utf-8' }))
 
-    results = results.filter(r => !currentContent.find(c => c.link === r.link))
-    // console.log(results)
-    currentContent = [...results, ...currentContent]
+        results = results.filter(r => !currentContent.find(c => c.link === r.link))
+        // console.log(results)
+        currentContent = [...results, ...currentContent]
 
-    await writeFile(path, JSON.stringify(currentContent), {
-        encoding: 'utf-8'
-    })
-    } catch(err) {
+        await writeFile(path, JSON.stringify(currentContent), {
+            encoding: 'utf-8'
+        })
+    } catch (err) {
         console.warn(err)
     }
 

@@ -21,14 +21,18 @@ server.get('*', async (req, res) => {
     await res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
-console.log(process.env)
+// console.log(process.env)
 
 const main = async () => {
+    try {
     await search();
 
     await server.listen(process.env.PORT || 3000)
     
     console.log(`server listening on port ${server.server.address().port}`)
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 main()

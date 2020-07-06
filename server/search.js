@@ -2,23 +2,27 @@ const lebonCoinAPI = require('leboncoin-api')
 const { readFile, writeFile, stat } = require('fs').promises
 const { Search } = lebonCoinAPI
 const makeRequest = async () => {
-    const s = await new Search()
-        .setPage(1)
-        .setQuery('renove OR neuf NOT studio OR terrasse OR balcon NOT local')
-        // .setFilter(leboncoin.FILTERS.PARTICULIER)
-        .setCategory('locations')
-        .setRegion('herault')
-        .setLocation([{
-            zipcode: '34000'
-        }])
-        .setSort({
-            sort_by: 'date',
-            sort_order: 'desc'
-        })
-        .addSearchExtra('price', { max: 750 }) // will add a range of price
-        .addSearchExtra('square', { min: 30 }); // will add enums for Meublé and Non meublé
+    try {
+        const s = await new Search()
+            .setPage(1)
+            .setQuery('renove OR neuf NOT studio OR terrasse OR balcon NOT local')
+            // .setFilter(leboncoin.FILTERS.PARTICULIER)
+            .setCategory('locations')
+            .setRegion('herault')
+            .setLocation([{
+                zipcode: '34000'
+            }])
+            .setSort({
+                sort_by: 'date',
+                sort_order: 'desc'
+            })
+            .addSearchExtra('price', { max: 750 }) // will add a range of price
+            .addSearchExtra('square', { min: 30 }); // will add enums for Meublé and Non meublé
 
-    return await s.run()
+        return await s.run()
+    } catch (err) {
+        console.warn(err)
+    }
 }
 
 const saveRequest = async ({ results }) => {

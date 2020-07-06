@@ -20,6 +20,8 @@ server.get('/', async (req, res) => {
     
 })
 
+console.log(process.env)
+
 const main = async () => {
     await search();
 

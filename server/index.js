@@ -27,7 +27,7 @@ const main = async () => {
     try {
         await search();
 
-        await server.listen(process.env.PORT || 3000)
+        await server.listen(process.env.PORT || 3000, '0.0.0.0')
 
         console.log(`server listening on port ${server.server.address().port}`)
     } catch (err) {

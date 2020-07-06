@@ -1,5 +1,5 @@
 const lebonCoinAPI = require('leboncoin-api')
-const { readFile, writeFile, stat } = require('fs/promises')
+const { readFile, writeFile, stat } = require('fs').promises
 const { Search } = lebonCoinAPI
 const makeRequest = async () => {
     const s = await new Search()

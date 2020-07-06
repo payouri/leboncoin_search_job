@@ -96,7 +96,10 @@ export interface IApartment {
     title: string,
     description: string,
     link: string,
-    images?: string[]
+    images?: string[],
+    owner: {
+        type: "private" | "pro"
+    }
 }
 
 export interface IAptListProps {
@@ -106,8 +109,10 @@ export interface IAptListProps {
     loading: boolean,
 }
 
+const ownerTag = ({ type } : IApartment['owner']) => type === 'private' ? <Tag color="purple">Particulier</Tag> : <Tag color="red">Agence</Tag>
+
 const ListItem = (props: IApartment) => {
-    let { description, link, title, images, price, date } = props
+    let { description, link, title, images, price, date, owner } = props
     description = description.length >= 200 ? description.substring(0, 200) + '...' : description
     description = description.replace(new RegExp('\\r\\n', 'g'), '<br>')
     return (
@@ -116,7 +121,7 @@ const ListItem = (props: IApartment) => {
         }}>
             <Card
                 actions={[<a target={'_blank'} rel="noopener noreferrer" href={link}>Voir l'annonce</a>]}
-                extra={[<Space><Tag color="default" icon={<ClockCircleOutlined />}>{`${timeAgo(date)}`}</Tag><Tag color="green" icon={<InfoCircleOutlined />}>{`${price}€`}</Tag></Space>]}
+                extra={[<Space>{ownerTag(owner)}<Tag color="default" icon={<ClockCircleOutlined />}>{`${timeAgo(date)}`}</Tag><Tag color="green" icon={<InfoCircleOutlined />}>{`${price}€`}</Tag></Space>]}
                 title={title}
                 cover={
                     <div style={{ display: 'block', height: '20rem', width: '100%' }}>
@@ -141,7 +146,7 @@ const ListItem = (props: IApartment) => {
                     </div>
                 }
             >
-                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'more' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
+                <Paragraph ellipsis={{ rows: 4, expandable: true, symbol: 'more' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
             </Card>
         </Col>
     )

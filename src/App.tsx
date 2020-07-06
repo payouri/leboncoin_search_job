@@ -17,6 +17,7 @@ const App = () => {
     setApartments(result.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     }))
+    console.log(result);
     setLoading(false)
   }, [])
 

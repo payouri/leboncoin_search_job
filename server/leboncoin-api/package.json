@@ -1,0 +1,66 @@
+{
+  "_from": "leboncoin-api@^0.0.42",
+  "_id": "leboncoin-api@0.0.42",
+  "_inBundle": false,
+  "_integrity": "sha512-zAK9+ILAIgfVfFv4qA39L89/VM5SKEwEhyupfi9LScEjGGjkw1H9cvUnqu+uwAcXLMiGpeQ/X51Iz5C8p67b2w==",
+  "_location": "/leboncoin-api",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "leboncoin-api@^0.0.42",
+    "name": "leboncoin-api",
+    "escapedName": "leboncoin-api",
+    "rawSpec": "^0.0.42",
+    "saveSpec": null,
+    "fetchSpec": "^0.0.42"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/leboncoin-api/-/leboncoin-api-0.0.42.tgz",
+  "_shasum": "4448420eeaff33728cddba1256020a9a2b9446c8",
+  "_spec": "leboncoin-api@^0.0.42",
+  "_where": "C:\\Users\\Dev\\devops\\leboncoin_search_job",
+  "author": {
+    "name": "Thomas Durieux"
+  },
+  "bugs": {
+    "url": "https://github.com/tdurieux/leboncoin-api/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "request": "^2.88.0"
+  },
+  "deprecated": false,
+  "description": "leboncoin.fr API",
+  "devDependencies": {
+    "coveralls": "^3.0.6",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.2.0",
+    "should": "^13.2.3"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "homepage": "https://github.com/tdurieux/leboncoin-api#readme",
+  "keywords": [
+    "le bon coin",
+    "leboncoin",
+    "leboncoin.fr"
+  ],
+  "license": "MIT",
+  "main": "./main.js",
+  "name": "leboncoin-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdurieux/leboncoin-api.git"
+  },
+  "scripts": {
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec  && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test-dev": "istanbul cover ./node_modules/mocha/bin/_mocha"
+  },
+  "version": "0.0.42"
+}

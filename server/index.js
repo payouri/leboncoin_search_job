@@ -25,12 +25,12 @@ server.get('*', async (req, res) => {
 
 const main = async () => {
     try {
-    await search();
+        await search();
 
-    await server.listen(process.env.PORT || 3000)
-    
-    console.log(`server listening on port ${server.server.address().port}`)
-    } catch(err) {
+        await server.listen(process.env.PORT || 3000)
+
+        console.log(`server listening on port ${server.server.address().port}`)
+    } catch (err) {
         console.log(err)
     }
 }

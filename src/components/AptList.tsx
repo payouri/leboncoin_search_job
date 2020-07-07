@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useCallback, useState } from 'react'
 import { Carousel, Card, Row, Col, Tag, Empty, Typography, Space } from 'antd';
 import { InfoCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 
@@ -109,10 +109,11 @@ export interface IAptListProps {
     loading: boolean,
 }
 
-const ownerTag = ({ type } : IApartment['owner']) => type === 'private' ? <Tag color="purple">Particulier</Tag> : <Tag color="red">Agence</Tag>
+const ownerTag = ({ type }: IApartment['owner']) => type === 'private' ? <Tag color="purple">Particulier</Tag> : <Tag color="red">Agence</Tag>
 
 const ListItem = (props: IApartment) => {
     let { description, link, title, images, price, date, owner } = props
+    // description = description.replace(new RegExp('\\n', 'g'), '<br />')
     return (
         <Col md={{
             span: 12
@@ -144,7 +145,7 @@ const ListItem = (props: IApartment) => {
                     </div>
                 }
             >
-                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'Plus' }} style={{ marginTop: '.25rem' }}>{description}</Paragraph>
+                <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: 'Plus' }} style={{ marginTop: '.25rem', whiteSpace: 'pre-line' }}>{description}</Paragraph>
             </Card>
         </Col>
     )
@@ -152,35 +153,59 @@ const ListItem = (props: IApartment) => {
 
 const AptList = (props: IAptListProps) => {
 
-    const { textFilter, apartments, loading } = props
+    const { textFilter, apartments, loading, perPage } = props
+    const [displayedApts, setDisplayedApts] = useState<IApartment[]>([])
+    const [page, setPage] = useState<number>(0)
+
+    useEffect(() => {
+        const allAptsSlice = [...apartments].splice(page * perPage, perPage)
+        const newApts = [...displayedApts, ...allAptsSlice]
+        setDisplayedApts(newApts)
+        return () => { }
+    }, [apartments, page, perPage])
+
+    const trackScrolling = useCallback(({ target: { scrollingElement } }) => {
+        const { height } = scrollingElement.getBoundingClientRect()
+        if (scrollingElement.scrollHeight - height - 32 <= scrollingElement.scrollTop && page * perPage < apartments.length) {
+           setPage(page + 1)
+        }
+    }, [])
+    
+    useEffect(() => {
+        document.addEventListener('scroll', trackScrolling);
+        return () => {
+            document.removeEventListener('scroll', trackScrolling)
+        }
+    }, [trackScrolling])
+
+
 
     return (
-        <>
-            <Row gutter={[16, 16]}
-                style={{
-                    //     listStyle: 'none',
-                    //     padding: 0,
-                    margin: 0,
-                }}
-            >
-                {!loading
-                    ? apartments && apartments.filter(a => !textFilter || a.description.indexOf(textFilter) > -1 || a.title.indexOf(textFilter) > -1).map(a => (
-                        <ListItem key={a.link} {...a} />
-                    ))
-                    : Array.from({ length: 6 }, (v, k) => k).map(index => (
-                        <Col md={{
-                            span: 12
-                        }}>
-                            <Card loading={true} key={index} />
-                        </Col>
-                    ))
-                }
-            </Row>
-        </>
+        <Row gutter={[16, 16]}
+            style={{
+                //     listStyle: 'none',
+                //     padding: 0,
+                margin: 0,
+            }}
+        >
+            {!loading
+                ? displayedApts.filter(a => !textFilter || a.description.indexOf(textFilter) > -1 || a.title.indexOf(textFilter) > -1).map(a => (
+                    <ListItem key={a.link} {...a} />
+                ))
+                : Array.from({ length: 6 }, (v, k) => k).map(index => (
+                    <Col md={{
+                        span: 12
+                    }}>
+                        <Card loading={true} key={index} />
+                    </Col>
+                ))
+            }
+        </Row>
     )
 }
 
 AptList.defaultProps = {
+    textFilter: '',
     perPage: 20,
     apartments: [],
     loading: false,

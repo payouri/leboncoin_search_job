@@ -17,7 +17,6 @@ const App = () => {
     setApartments(result.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     }))
-    console.log(result);
     setLoading(false)
   }, [])
 
@@ -41,8 +40,8 @@ const App = () => {
             <Input.Search value={filter} onChange={({ target: { value } }) => { setFilter(value) }} enterButton={false} />
           </Layout.Header>
         </Affix>
-        <Layout.Content>
-          <Suspense fallback={<Spin />}>
+        <Layout.Content style={{ minHeight: '100vh' }}>
+          <Suspense fallback={<Spin size="large" delay={100}  style={{ margin: 'auto' }}/>}>
             <AptList loading={loading} apartments={apartments} textFilter={filter} />
           </Suspense>
         </Layout.Content>

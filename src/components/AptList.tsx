@@ -167,10 +167,10 @@ const AptList = (props: IAptListProps) => {
     const trackScrolling = useCallback(({ target: { scrollingElement } }) => {
         const { height } = scrollingElement.getBoundingClientRect()
         if (scrollingElement.scrollHeight - height - 32 <= scrollingElement.scrollTop && page * perPage < apartments.length) {
-           setPage(page + 1)
+            setPage(page + 1)
         }
     }, [])
-    
+
     useEffect(() => {
         document.addEventListener('scroll', trackScrolling);
         return () => {
@@ -193,9 +193,11 @@ const AptList = (props: IAptListProps) => {
                     <ListItem key={a.link} {...a} />
                 ))
                 : Array.from({ length: 6 }, (v, k) => k).map(index => (
-                    <Col md={{
-                        span: 12
-                    }}>
+                    <Col
+                        xs={{ span: 24 }}
+                        md={{
+                            span: 12
+                        }}>
                         <Card loading={true} key={index} />
                     </Col>
                 ))

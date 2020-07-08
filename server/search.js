@@ -26,7 +26,7 @@ const makeRequest = async () => {
 }
 
 const saveRequest = async ({ results }) => {
-    const path = './search.json'
+    const path = 'build/search.json'
     try {
         await stat(path)
     } catch (err) {
@@ -40,6 +40,7 @@ const saveRequest = async ({ results }) => {
 
         results = results.filter(r => !currentContent.find(c => c.link === r.link))
         // console.log(results)
+        console.log(`found ${results.length} new offers`)
         currentContent = [...results, ...currentContent]
 
         await writeFile(path, JSON.stringify(currentContent), {

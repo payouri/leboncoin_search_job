@@ -194,7 +194,7 @@ const AptList = (props: IAptListProps) => {
                 ))
                 : Array.from({ length: 6 }, (v, k) => k).map(index => (
                     <Col
-                        xs={{ span: 24 }}
+                        span={24}
                         md={{
                             span: 12
                         }}>

@@ -1,6 +1,7 @@
 const lebonCoinAPI = require('./leboncoin-api')
 const { readFile, writeFile, stat } = require('fs').promises
 const { Search } = lebonCoinAPI
+const path = require('path') 
 const makeRequest = async () => {
     try {
         const s = await new Search()
@@ -26,24 +27,40 @@ const makeRequest = async () => {
 }
 
 const saveRequest = async ({ results }) => {
-    const path = 'build/search.json'
+    const filePath =  path.join(__dirname, 'build/search.json')
+    const safePath =  path.join(__dirname, 'public/search.json')
     try {
-        await stat(path)
+        await stat(filePath)
     } catch (err) {
-        await writeFile(path, JSON.stringify([]), {
+        await writeFile(filePath, JSON.stringify([]), {
             encoding: 'utf-8'
         })
     }
 
     try {
-        let currentContent = JSON.parse(await readFile(path, { encoding: 'utf-8' }))
+        await stat(safePath)
+    } catch (err) {
+        await writeFile(safePath, JSON.stringify([]), {
+            encoding: 'utf-8'
+        })
+    }
+
+    try {
+        let currentContent = JSON.parse(await readFile(filePath, { encoding: 'utf-8' }))
+        let currentSafeContent = JSON.parse(await readFile(safePath, { encoding: 'utf-8' }))
 
         results = results.filter(r => !currentContent.find(c => c.link === r.link))
+        const safeResults = results.filter(r => !currentSafeContent.find(c => c.link === r.link))
         // console.log(results)
         console.log(`found ${results.length} new offers`)
         currentContent = [...results, ...currentContent]
+        currentSafeContent = [...safeResults, ...currentSafeContent]
 
-        await writeFile(path, JSON.stringify(currentContent), {
+        await writeFile(filePath, JSON.stringify(currentContent), {
+            encoding: 'utf-8'
+        })
+
+        await writeFile(safePath, JSON.stringify(currentSafeContent), {
             encoding: 'utf-8'
         })
     } catch (err) {
